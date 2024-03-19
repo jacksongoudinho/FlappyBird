@@ -32,7 +32,12 @@ public class PipesManager : MonoBehaviour
 
     void CreatePipe()
     {
-        Instantiate(pipeModel, spawnPoint.position, Quaternion.identity);
+        var pipeGameObject = Instantiate(pipeModel);
+        var pipeTransform = pipeGameObject.GetComponent<Transform>();
+
+        float y = Random.Range(-3.0f, -0.6f);
+
+        pipeTransform.position = new Vector3(spawnPoint.position.x, y);
     }
 
 
