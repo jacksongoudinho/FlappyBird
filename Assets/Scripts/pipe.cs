@@ -16,15 +16,28 @@ public class pipe : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position += Vector3.left * Time.deltaTime * speed;
-
-        if (transform.position.x < -3.1f)
+        switch (GameManager.instance.status)
         {
-            // Autoexcluir
+            case GameStatus.Start:
+                break;
+            case GameStatus.Play:
+                PlayUpdate();
+                break;
+            case GameStatus.GameOver:
+                break;
+        }
+        
+        void PlayUpdate()
+        {
+            transform.position += Vector3.left * Time.deltaTime * speed;
 
-            Destroy(gameObject);
+            if (transform.position.x < -3.1f)
+            {
+                // Autoexcluir
+
+                Destroy(gameObject);
 
         }
-
+        }
     }
 }

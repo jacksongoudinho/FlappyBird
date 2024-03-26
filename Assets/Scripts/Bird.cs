@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Bird : MonoBehaviour
@@ -7,9 +9,12 @@ public class Bird : MonoBehaviour
     public Rigidbody2D rig;
     public float jumpForce;
 
+    private Vector3 startPosition;
+
     // Start is called before the first frame update
     void Start()
     {
+        startPosition = transform.position;
         rig.bodyType = RigidbodyType2D.Static;
     }
 
@@ -20,25 +25,26 @@ public class Bird : MonoBehaviour
         {
             case GameStatus.Start:
                 StartUpdate();
-                    break;
+                break;
             case GameStatus.Play:
                 PlayUpdate();
-                    break;
+                break;
             case GameStatus.GameOver:
                 GameOverUpdate();
-                    break;
+                break;
         }
+    }
+
+    public void StartGame()
+    {
+        rig.bodyType = RigidbodyType2D.Dynamic;
+        Jump();
     }
 
 
     void StartUpdate()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            GameManager.instance.StartGame();
-            rig.bodyType = RigidbodyType2D.Dynamic;
-            Jump();
-        }
+     
     }
 
     void Jump()
@@ -65,6 +71,12 @@ public class Bird : MonoBehaviour
     void GameOverUpdate()
     {
     
+    }
+
+    public void Restart()
+    {
+        transform.position = startPosition;
+        rig.bodyType = RigidbodyType2D.Static;
     }
 }
 
