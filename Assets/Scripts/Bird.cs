@@ -41,7 +41,7 @@ public class Bird : MonoBehaviour
     {
         rig.bodyType = RigidbodyType2D.Dynamic;
         Jump();
-        animator.SetBool("isAluve", true);
+        animator.SetBool("isAlive", true);
     }
 
 
@@ -67,10 +67,19 @@ public class Bird : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        GameManager.instance.GameOver();
-        animator.SetBool("isAluve", false);
+        GameOver();
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        GameOver();
+    }
+
+    private void GameOver()
+    {
+        GameManager.instance.GameOver();
+        animator.SetBool("isAlive", false);
+    }
 
     void GameOverUpdate()
     {
@@ -82,7 +91,7 @@ public class Bird : MonoBehaviour
         transform.position = startPosition;
         transform.rotation = Quaternion.identity;
         rig.bodyType = RigidbodyType2D.Static;
-        animator.SetBool("isAluve", true);
+        animator.SetBool("isAlive", true);
 
     }
 }

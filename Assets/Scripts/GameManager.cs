@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum GameStatus
 {
@@ -16,6 +17,8 @@ public class GameManager : MonoBehaviour
     public GameStatus status = GameStatus.Start;
     public Bird bird;
     public PipesManager pipesManager;
+    public Image startImage;
+    public Image gameOverImage;
 
     private void Awake()
     {
@@ -53,17 +56,23 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    
+    private void Start()
+    {
+        startImage.enabled = true;
+        gameOverImage.enabled = false;
+    }
 
     public void StartGame()
     {
         status = GameStatus.Play;
         bird.StartGame();
+        startImage.enabled = false;
     }
 
     public void GameOver()
     {
         status = GameStatus.GameOver;
+        gameOverImage.enabled = true;
     }
 
     void GameOverUpdate()
@@ -78,5 +87,7 @@ public class GameManager : MonoBehaviour
         status = GameStatus.Start;
         bird.Restart();
         pipesManager.Restart();
+        startImage.enabled = true;
+        gameOverImage.enabled = false;
     }
 }   
