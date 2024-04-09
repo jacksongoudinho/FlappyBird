@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,6 +20,9 @@ public class GameManager : MonoBehaviour
     public PipesManager pipesManager;
     public Image startImage;
     public Image gameOverImage;
+    public TMP_Text scoreText;
+
+    int score = 0;
 
     private void Awake()
     {
@@ -89,5 +93,18 @@ public class GameManager : MonoBehaviour
         pipesManager.Restart();
         startImage.enabled = true;
         gameOverImage.enabled = false;
+        score = 0;
+        UpdateScoreText();
+    }
+
+    public void addScore()
+    {
+        score++;
+        UpdateScoreText();
+    }
+
+    public void UpdateScoreText()
+    {
+        scoreText.text = $"Score: {score.ToString()}";
     }
 }   

@@ -72,7 +72,20 @@ public class Bird : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        GameOver();
+        switch (collision.gameObject.layer)
+        {         
+            case 6:
+                GameOver();
+                break;
+
+            case 7:
+                GameManager.instance.addScore();
+                break;
+
+            default:
+                break;
+        }
+       
     }
 
     private void GameOver()
